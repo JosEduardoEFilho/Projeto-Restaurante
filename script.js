@@ -8,6 +8,7 @@ const closeModalBtn = document.getElementById("close-modal-btn")
 const cartCounter = document.getElementById("cart-count")
 const addressInput = document.getElementById("address")
 const addressWarn = document.getElementById("address-warn")
+const cancelBtn = document.getElementById("cancel-btn")
 
 let cart = [];
 
@@ -64,10 +65,67 @@ function addToCart(name, price) {
     updateCartModal()
 }
 
+//Animação
+/*function animateItemToCart(button) {
+    const cartIcon = cartBtn.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+
+    const clone = button.cloneNode(true);
+    clone.style.position = "absolute";
+    clone.style.left = `${buttonRect.left}px`;
+    clone.style.top = `${buttonRect.top}px`;
+    clone.style.width = `${buttonRect.width}px`;
+    clone.style.height = `${buttonRect.height}px`;
+    clone.style.opacity = "1";
+    clone.style.transition = "all 0.8s ease-in-out";
+    clone.style.transform = "scale(1)";
+
+    document.body.appendChild(clone);
+
+    setTimeout(() => {
+        clone.style.left = `${cartIcon.left + cartIcon.width / 2}px`;
+        clone.style.top = `${cartIcon.top + cartIcon.height / 2}px`;
+        clone.style.transform = "scale(0.1)";
+        clone.style.opacity = "0";
+    }, 100);
+
+    setTimeout(() => {
+        clone.remove();
+    }, 800);
+}*/
+document.querySelector(".add-to-cart-btn").addEventListener("click", function(event) {
+    let productImg = document.querySelector(".product-img");
+    let cart = document.querySelector("#cart-modal");
+
+    let flyingImg = productImg.cloneNode(true);
+    flyingImg.classList.add("flying-img");
+
+    let rect = productImg.getBoundingClientRect();
+    flyingImg.style.left = rect.left + "px";
+    flyingImg.style.top = rect.top + "px";
+    document.body.appendChild(flyingImg);
+
+    setTimeout(() => {
+        let cartRect = cart.getBoundingClientRect();
+        flyingImg.style.left = cartRect.left + "px";
+        flyingImg.style.top = cartRect.top + "px";
+        flyingImg.style.width = "20px";
+        flyingImg.style.height = "20px";
+    }, 100);
+
+    setTimeout(() => {
+        flyingImg.remove();
+        let cartCount = document.querySelector("#cart-count");
+        cartCount.textContent = parseInt(cartCount.textContent) + 1;
+    }, 800);
+});
+
+
 //Atualiza carrinho
 function updateCartModal() {
     cartItemsContainer.innerHTML = "";
     let total = 0;
+    let totalItens = 0;
 
     cart.forEach(item => {
         const cartItemElement = document.createElement("div");
@@ -87,6 +145,7 @@ function updateCartModal() {
         `
 
         total += item.price * item.quantity;
+        totalItens +=item.quantity;
         cartItemsContainer.appendChild(cartItemElement)
     })
 
@@ -94,7 +153,9 @@ function updateCartModal() {
         style: "currency",
         currency: "BRL"
     });
-    cartCounter.innerHTML = cart.length;
+    //cartCounter.innerHTML = cart.length;
+    cartCounter.innerHTML = totalItens;
+
 }
 
 //Função para remover item do carrinho
@@ -133,10 +194,16 @@ addressInput.addEventListener("input", function (event) {
     //
 })
 
+//Remover todos os itens do carrinho
+cancelBtn.addEventListener("click", function(){
+    cart=[];
+    updateCartModal();
+})
 
 //Finalizar Pedido
 checkoutBtn.addEventListener("click", function () {
     const isOpen = checkRestaurantOpen();
+    let vlrTotal = 0;
     if (!isOpen) {
         Toastify({
             text: "Ops o restaurante está fechado!",
@@ -161,6 +228,7 @@ checkoutBtn.addEventListener("click", function () {
 
     //Enviar o pedido para api wapp
     const cartItems = cart.map((item) => {
+        vlrTotal += item.price * item.quantity;
         return (
             `${item.name} 
 Quantidade: (${item.quantity}) 
@@ -170,10 +238,16 @@ Preço: ${item.price}
         )
     }).join("");
 
-    const message = encodeURIComponent(cartItems)
-    const phone = "19988413788"
+    const totalFormatted = vlrTotal.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
 
-    window.open(`https://wa.me/${phone}?text=${message} Endereço: ${addressInput.value}`, "_blank")
+    const message = encodeURIComponent(`Pedido:\n\n${cartItems}\nTotal: ${totalFormatted}\n\nEndereço: ${addressInput.value}`)
+    const phone = "19988413788"
+    
+
+    window.open(`https://wa.me/${phone}?text=${message}`, "_blank")
 
     cart = [];
     updateCartModal();
@@ -184,7 +258,7 @@ Preço: ${item.price}
 function checkRestaurantOpen() {
     const data = new Date();
     const hora = data.getHours();
-    return hora >= 18 && hora < 22;
+    return hora >= 8 && hora < 22;
 }
 
 const spanItem = document.getElementById("date-span")

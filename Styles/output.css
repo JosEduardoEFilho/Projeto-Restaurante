@@ -2599,6 +2599,11 @@ video {
   color: rgb(51 102 153 / .35);
 }
 
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
 .text-blue-500 {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity, 1));
@@ -3087,6 +3092,22 @@ video {
 
 body{
   background-color: #f6f7f8;
+}
+
+#cart-modal{
+  cursor: pointer;
+}
+
+.product {
+  margin-top: 50px;
+}
+
+.flying-img {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  transition: all 0.7s ease-in-out;
+  z-index: 1000;
 }
 
 @media (min-width: 640px) {
