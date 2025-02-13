@@ -974,6 +974,26 @@ video {
   max-height: 100vh;
 }
 
+.max-h-\[300px\] {
+  max-height: 300px;
+}
+
+.max-h-\[80vh\] {
+  max-height: 80vh;
+}
+
+.max-h-\[00px\] {
+  max-height: 00px;
+}
+
+.max-h-\[500px\] {
+  max-height: 500px;
+}
+
+.max-h-\[400px\] {
+  max-height: 400px;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -988,10 +1008,6 @@ video {
 
 .w-32 {
   width: 8rem;
-}
-
-.w-52 {
-  width: 13rem;
 }
 
 .w-\[this-is\\\\\] {
@@ -2412,6 +2428,10 @@ video {
   padding: 1.25rem;
 }
 
+.p-2 {
+  padding: 0.5rem;
+}
+
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
@@ -2518,6 +2538,16 @@ video {
   line-height: 2.5rem;
 }
 
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.text-9xl {
+  font-size: 8rem;
+  line-height: 1;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -2526,11 +2556,6 @@ video {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-.text-9xl {
-  font-size: 8rem;
-  line-height: 1;
 }
 
 .font-bold {
@@ -3121,7 +3146,7 @@ body{
 }
 
 .flying-img {
-  position: inherit;
+  position: absolute;
   width: 60px;
   height: 60px;
   transition: all 0.8s ease-in-out;
