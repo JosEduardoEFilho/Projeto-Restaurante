@@ -9,8 +9,19 @@ const cartCounter = document.getElementById("cart-count")
 const addressInput = document.getElementById("address")
 const addressWarn = document.getElementById("address-warn")
 const cancelBtn = document.getElementById("cancel-btn")
+const checkModal = document.getElementById("cart-ok")
+const cartIcon = document.getElementById("cart-icon")
 
 let cart = [];
+//Abrir o modal item OK
+cartIcon.addEventListener("click", function(){
+    checkModal.style.display = "flex"
+    // Esconde o modal após 1 segundo
+    setTimeout(() => {
+        checkModal.style.display = "none";
+    }, 1000);
+})
+
 
 //Abrir o modal do carrinho
 cartBtn.addEventListener("click", function () {
@@ -109,15 +120,15 @@ document.querySelector(".add-to-cart-btn").addEventListener("click", function(ev
         let cartRect = cart.getBoundingClientRect();
         flyingImg.style.center = cartRect.center + "px";
         flyingImg.style.bottom = cartRect.bottom + "px";
-        flyingImg.style.width = "20px";
-        flyingImg.style.height = "20px";
+        flyingImg.style.width = "10px";
+        flyingImg.style.height = "10px";
     }, 100);
 
     setTimeout(() => {
         flyingImg.remove();
         let cartCount = document.querySelector("#cart-count");
         //cartCount.textContent = parseInt(cartCount.textContent) + 1;
-    }, 1000);
+    }, 900);
 });
 
 
