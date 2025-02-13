@@ -101,14 +101,14 @@ document.querySelector(".add-to-cart-btn").addEventListener("click", function(ev
     flyingImg.classList.add("flying-img");
 
     let rect = productImg.getBoundingClientRect();
-    flyingImg.style.left = rect.left + "px";
-    flyingImg.style.top = rect.top + "px";
+    flyingImg.style.center = rect.center + "px";
+    flyingImg.style.bottom = rect.bottom + "px";
     document.body.appendChild(flyingImg);
 
     setTimeout(() => {
         let cartRect = cart.getBoundingClientRect();
-        flyingImg.style.left = cartRect.left + "px";
-        flyingImg.style.top = cartRect.top + "px";
+        flyingImg.style.center = cartRect.center + "px";
+        flyingImg.style.bottom = cartRect.bottom + "px";
         flyingImg.style.width = "20px";
         flyingImg.style.height = "20px";
     }, 100);
@@ -116,8 +116,8 @@ document.querySelector(".add-to-cart-btn").addEventListener("click", function(ev
     setTimeout(() => {
         flyingImg.remove();
         let cartCount = document.querySelector("#cart-count");
-        cartCount.textContent = parseInt(cartCount.textContent) + 1;
-    }, 800);
+        //cartCount.textContent = parseInt(cartCount.textContent) + 1;
+    }, 1000);
 });
 
 
