@@ -14,7 +14,7 @@ const cartIcons = document.getElementsByName("cart-icon");
 
 let cart = [];
 
-cartIcons.forEach(icon => {
+/*cartIcons.forEach(icon => {
     icon.addEventListener("click", function(){
         //checkModal.style.display = "flex";
         icon.style.background = "green"; // Muda para verde
@@ -23,9 +23,81 @@ cartIcons.forEach(icon => {
             icon.style.background = ""; // Volta para a cor original (ou defina uma cor específica)
         }, 200);
 
+        // Obtém o contêiner correto do produto
+        let item = this.closest(".flex"); // Captura o div do produto específico
+        let itemName = item.querySelector("p.font-bold").textContent; // Obtém o nome do produto
+        let itemImage = item.querySelector("img").src; // Obtém a imagem do produto
+
+        // Exibe o Toastify com a imagem e o nome do produto
+        Toastify({
+            text: `✅ ${itemName} adicionado ao carrinho!`,
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+                background: "#22c55e", // Verde
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+            },
+            avatar: itemImage, // Adiciona a imagem do produto na notificação
+        }).showToast();
+
         /*setTimeout(() => {
             checkModal.style.display = "none";
-        }, 200);*/
+        }, 200);
+    });
+});*/
+document.addEventListener("DOMContentLoaded", function() {
+    const cartIcons = document.querySelectorAll(".add-to-cart-btn"); // Captura todos os botões de adicionar
+
+    cartIcons.forEach(icon => {
+        icon.addEventListener("click", function() {
+            // Muda a cor do botão para verde e volta ao normal depois de 200ms
+            icon.style.background = "green";
+            
+            setTimeout(() => {
+                icon.style.background = "";
+            }, 200);
+
+            // Obtém o contêiner correto do produto com ID "prod"
+            let item = this.closest("#prod"); // Captura o div com id="prod"
+            
+            if (!item) {
+                console.error("Erro: Item não encontrado!");
+                return;
+            }
+
+            let itemName = item.querySelector("p.font-bold")?.textContent.trim(); // Obtém o nome do produto
+            let itemImage = item.querySelector("img")?.src; // Obtém a imagem do produto
+
+            // Debug para verificar se os valores foram capturados corretamente
+            console.log("Produto:", itemName, "Imagem:", itemImage);
+
+            if (!itemName || !itemImage) {
+                console.error("Erro: Nome ou imagem do item não encontrado!");
+                return;
+            }
+
+            // Exibe o Toastify com a imagem e o nome do produto
+            Toastify({
+                text: `${itemName} adicionado ao carrinho!`,
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#22c55e", // Verde
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                },
+                avatar: itemImage, // Adiciona a imagem do produto na notificação
+            }).showToast();
+        });
     });
 });
 
@@ -185,6 +257,11 @@ checkoutBtn.addEventListener("click", function () {
     if (addressInput.value === "") {
         addressWarn.classList.remove("hidden")
         addressInput.classList.add("border-red-500")
+
+        setTimeout(() => {
+            addressWarn.classList.add("hidden");
+            addressInput.classList.remove("border-red-500")
+        }, 2000);
         return;
     }
 
