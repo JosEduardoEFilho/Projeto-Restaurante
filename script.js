@@ -16,11 +16,16 @@ let cart = [];
 
 cartIcons.forEach(icon => {
     icon.addEventListener("click", function(){
-        checkModal.style.display = "flex";
-
+        //checkModal.style.display = "flex";
+        icon.style.background = "green"; // Muda para verde
+        
         setTimeout(() => {
-            checkModal.style.display = "none";
+            icon.style.background = ""; // Volta para a cor original (ou defina uma cor específica)
         }, 200);
+
+        /*setTimeout(() => {
+            checkModal.style.display = "none";
+        }, 200);*/
     });
 });
 
