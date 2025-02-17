@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Exibe o Toastify com a imagem e o nome do produto
             Toastify({
                 text: `${itemName} adicionado ao carrinho!`,
-                duration: 3000,
+                duration: 1000,
                 close: true,
                 gravity: "top",
                 position: "right",
@@ -169,12 +169,20 @@ function updateCartModal() {
             <div class="flex items-center justify-between">
                 <div>
                     <p class="font-medium">${item.name}</p>
-                    <p>Qtd: ${item.quantity}</p>
+                    <!--<p>Qtd: ${item.quantity}</p>-->
                     <p class="font-medium mt-2">R$ ${item.price.toFixed(2)}</p>
                 </div>
-                    <button class="remove-from-cart-btn" data-name="${item.name}">
-                        Remover
-                    </button>
+                <div>
+                <a type="button" class="remove-from-cart-btn text-center text-gray-600 border-2 p-1 rounded my-1" data-name="${item.name}">
+                        -
+                    </a>
+                    <input type="text" value="${item.quantity}" class="w-10 border-2 p-1 rounded my-1 text-center" readonly/>
+                    <space><space/>
+                    <a type="button" class="add-to-cart-btn text-center text-gray-600 border-2 p-1 rounded my-1" data-name="${item.name}">
+                        +
+                    </a>
+                </div>
+                    
             </div>
         `
 
@@ -199,6 +207,11 @@ cartItemsContainer.addEventListener("click", function (event) {
 
         removeItemCart(name);
     }
+    if (event.target.classList.contains("add-to-cart-btn")) {
+        const name = event.target.getAttribute("data-name")
+
+        NovoItemCart(name);
+    }
 })
 
 function removeItemCart(name) {
@@ -209,6 +222,24 @@ function removeItemCart(name) {
 
         if (item.quantity > 1) {
             item.quantity -= 1;
+            updateCartModal();
+            return;
+        }
+
+        cart.splice(index, 1);
+        updateCartModal();
+    }
+}
+
+//Adicionar ao carrinho modal
+function NovoItemCart(name) {
+    const index = cart.findIndex(item => item.name === name);
+
+    if (index >= 0) {
+        const item = cart[index];
+
+        if (item.quantity >= 1) {
+            item.quantity += 1;
             updateCartModal();
             return;
         }
