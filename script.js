@@ -14,6 +14,7 @@ const cartIcons = document.getElementsByName("cart-icon");
 
 let cart = [];
 
+
 /*cartIcons.forEach(icon => {
     icon.addEventListener("click", function(){
         //checkModal.style.display = "flex";
@@ -50,21 +51,21 @@ let cart = [];
         }, 200);
     });
 });*/
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const cartIcons = document.querySelectorAll(".add-to-cart-btn"); // Captura todos os botões de adicionar
 
     cartIcons.forEach(icon => {
-        icon.addEventListener("click", function() {
+        icon.addEventListener("click", function () {
             // Muda a cor do botão para verde e volta ao normal depois de 200ms
             icon.style.background = "green";
-            
+
             setTimeout(() => {
                 icon.style.background = "";
             }, 200);
 
             // Obtém o contêiner correto do produto com ID "prod"
             let item = this.closest("#prod"); // Captura o div com id="prod"
-            
+
             if (!item) {
                 console.error("Erro: Item não encontrado!");
                 return;
@@ -172,14 +173,13 @@ function updateCartModal() {
                     <!--<p>Qtd: ${item.quantity}</p>-->
                     <p class="font-medium mt-2">R$ ${item.price.toFixed(2)}</p>
                 </div>
-                <div>
+                <div class="flex items-center justify-between">
                 <a type="button" class="remove-from-cart-btn text-center text-gray-600 border-2 p-1 rounded my-1" data-name="${item.name}">
-                        -
+                         <i class="fa fa-minus text-1 text-center text-black remove-from-cart-btn" data-name="${item.name}"></i>
                     </a>
-                    <input type="text" value="${item.quantity}" class="w-10 border-2 p-1 rounded my-1 text-center" readonly/>
-                    <space><space/>
+                    <input type="text" value="${item.quantity}" class="w-10 border-2 p-2 rounded my-1 mx-1 text-center font-bold" readonly/>
                     <a type="button" class="add-to-cart-btn text-center text-gray-600 border-2 p-1 rounded my-1" data-name="${item.name}">
-                        +
+                        <i class="fa fa-plus text-1 text-center text-black add-to-cart-btn" data-name="${item.name}"></i>
                     </a>
                 </div>
                     
@@ -187,7 +187,7 @@ function updateCartModal() {
         `
 
         total += item.price * item.quantity;
-        totalItens +=item.quantity;
+        totalItens += item.quantity;
         cartItemsContainer.appendChild(cartItemElement)
     })
 
@@ -260,8 +260,46 @@ addressInput.addEventListener("input", function (event) {
 })
 
 //Remover todos os itens do carrinho
-cancelBtn.addEventListener("click", function(){
-    cart=[];
+cancelBtn.addEventListener("click", function () {
+    if(cart != []){
+        cart = [];
+        Toastify({
+            text: "⚠️ Carrinho Vazio!",
+            duration: 1500, // Tempo ajustado para melhor visibilidade
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+                background: "#FF0000", // Vermelho para indicar alerta
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "bold",
+                padding: "10px",
+                borderRadius: "5px",
+            },
+        }).showToast()
+    }else{
+        // Exibe o Toastify com a imagem e o nome do produto
+        Toastify({
+            text: "⚠️ Carrinho Vazio!",
+            duration: 1500, // Tempo ajustado para melhor visibilidade
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+                background: "#FF0000", // Vermelho para indicar alerta
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "bold",
+                padding: "10px",
+                borderRadius: "5px",
+            },
+        }).showToast()
+    }
     updateCartModal();
 })
 
@@ -315,12 +353,13 @@ Preço: ${item.price}
 
     const message = encodeURIComponent(`Pedido:\n\n${cartItems}\nTotal: ${totalFormatted}\n\nEndereço: ${addressInput.value}`)
     const phone = "19988413788"
-    
+
 
     window.open(`https://wa.me/${phone}?text=${message}`, "_blank")
 
     cart = [];
     updateCartModal();
+    
 
 })
 
