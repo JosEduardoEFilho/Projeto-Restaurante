@@ -69,8 +69,28 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 //Abrir o modal de confirmação
 alertBtn.addEventListener("click", function () {
-    updateCartModal();
-    confirmModal.style.display = "flex"
+    if (cart.length === 0){
+        Toastify({
+            text: "⚠️ Carrinho Vazio!",
+            duration: 500, // Tempo ajustado para melhor visibilidade
+            close: false,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+                background: "#FFFF00", // Vermelho para indicar alerta
+                color: "#000",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "bold",
+                padding: "10px",
+                borderRadius: "5px",
+            },
+        }).showToast()   
+    }else{
+        confirmModal.style.display = "flex"
+        updateCartModal();
+    }
 })
 
 
