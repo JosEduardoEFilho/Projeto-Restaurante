@@ -67,7 +67,7 @@
                         <a type="button" class="bg-gray-900 px-5 rounded add-to-cart-btn" data-name="Hamburguer Smash"
                             data-price="18.90" name="cart-icon">
                             <i name="cart-icon" class="fa fa-cart-plus text-lg text-white"></i>
-                    </a>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -85,10 +85,10 @@
                         repellat numquam quisquam sunt officia. Exercitationem!</p>
                     <div class="flex itens-center gap-2 justify-between mt-3">
                         <p class="font-bold text-lg">R$ 18,90</p>
-                        <a type="button"class="bg-gray-900 px-5 rounded add-to-cart-btn" data-name="Hamburguer TESTE"
+                        <a type="button" class="bg-gray-900 px-5 rounded add-to-cart-btn" data-name="Hamburguer TESTE"
                             data-price="18.90" name="cart-icon">
                             <i name="cart-icon" class="fa fa-cart-plus text-lg text-white"></i>
-                    </a>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -131,7 +131,7 @@
                         <p class="font-bold text-lg">R$ 35,90</p>
                         <button class="bg-gray-900 px-5 rounded add-to-cart-btn" data-name="Hamburguer Cheader"
                             data-price="35.90" name="cart-icon">
-                            <i name="cart-icon"class="fa fa-cart-plus text-lg text-white"></i>
+                            <i name="cart-icon" class="fa fa-cart-plus text-lg text-white"></i>
                         </button>
                     </div>
                 </div>
@@ -179,8 +179,8 @@
                     <p class="font-bold">Coca Lata</p>
                     <div class="flex itens-center gap-2 justify-between mt-3">
                         <p class="font-bold text-lg">R$ 6,00</p>
-                        <button class="bg-gray-900 px-5 rounded add-to-cart-btn" data-name="Coca Lata"
-                            data-price="6.00" name="cart-icon">
+                        <button class="bg-gray-900 px-5 rounded add-to-cart-btn" data-name="Coca Lata" data-price="6.00"
+                            name="cart-icon">
                             <i name="cart-icon" class="fa fa-cart-plus text-lg text-white"></i>
                         </button>
                     </div>
@@ -212,40 +212,70 @@
     <!--FIM MENU-->
 
     <!-- MODAL CART -->
-<div class="bg-black/60 w-full h-full fixed top-0 left-0 z-[99] 
+    <div class="bg-black/60 w-full h-full fixed top-0 left-0 z-[99] 
 items-center justify-center hidden" id="cart-modal">
 
-   <div class="bg-white p-5 rounded-md min-w-[90%] md:min-w-[600px] ">
-       <div class="flex items-center justify-end mt-5 w-full">
-           <i id="close-modal-btn" class="fa fa-close text-lg text-black"></i>
-       </div>
+        <div class="bg-white p-5 rounded-md min-w-[90%] md:min-w-[600px] ">
+            <div class="flex items-center justify-end mt-5 w-full">
+                <i id="close-modal-btn" class="fa fa-close text-lg text-black"></i>
+            </div>
 
-       <h2 class="text-center font-bold text-2xl mb-2">Meu carrinho</h2>
+            <h2 class="text-center font-bold text-2xl mb-2">Meu carrinho</h2>
 
-       <!-- Adicionado max-height e overflow-y para permitir rolagem -->
-       <div id="cart-items" class="flex justify-between mb-2 flex-col max-h-[400px] overflow-y-auto  p-2"></div>
+            <!-- Adicionado max-height e overflow-y para permitir rolagem -->
+            <div id="cart-items" class="flex justify-between mb-2 flex-col max-h-[400px] overflow-y-auto  p-2"></div>
 
-       <p class="font-bold">Total: <span id="cart-total">0.00</span></p>
+            <p class="font-bold">Total: <span id="cart-total">0.00</span></p>
 
-       <p class="font-bold mt-4">Endereço de entrega: </p>
-       <input type="text" placeholder="Digite seu endereço completo..." id="address"
-           class="w-full border-2 p-1 rounded my-1" />
+            <p class="font-bold mt-4">Endereço de entrega: </p>
+            <input type="text" placeholder="Digite seu endereço completo..." id="address"
+                class="w-full border-2 p-1 rounded my-1" />
 
-       <p class="text-red-500 hidden" id="address-warn">Digite seu endereço completo!</p>
+            <p class="text-red-500 hidden" id="address-warn">Digite seu endereço completo!</p>
 
-       <div class="flex items-center justify-between mt-5 w-full">
-           <div class="flex items-center justify-end mt-5 w-full">
-               <button id="cancel-btn" class="bg-red-500 text-white px-4 py-1 rounded">Cancelar Pedido</button>
-               <button id="checkout-btn" class="bg-green-500 text-white px-4 py-1 rounded">Finalizar pedido</button>
-           </div>
-       </div>
-   </div>
-</div>
-<!-- FIM MODAL CART -->
+            <div class="flex items-center justify-between mt-5 w-full">
+                <div class="flex items-center justify-start mt-5 w-full">
+                    <button id="alert-btn" class="bg-red-500 text-white px-4 py-1 rounded">Cancelar Pedido</button>
+                </div>
+                <div class="flex items-center justify-end mt-5 w-full">
+                    <button id="checkout-btn" class="bg-green-500 text-white px-4 py-1 rounded">Finalizar
+                        pedido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM MODAL CART -->
+
+    <!-- MODAL CONFIRMAÇÃO -->
+    <div class="bg-black/60 w-full h-full fixed top-0 left-0 z-[99] 
+items-center justify-center hidden" id="confirm-modal">
+
+        <div class="bg-white p-4 rounded-md w-[60%] md:w-[350px] ">
+            <div class="flex items-center justify-center mt-3 w-full">
+                <i class="fa fa-exclamation-triangle text-7xl text-yellow-500"></i>
+            </div>
+            <h2 class="text-center font-bold text-6xl mb-2">ATENÇÃO!</h2>
+            
+            <p class="font-bold text-3xl text-center">Deseja realmente cancelar seu pedido!</p>
+
+            <div class="flex items-center justify-between mt-5 w-full">
+                <div class="flex items-center justify-start mt-5 w-full">
+                    <button id="abort-btn" class="bg-green-500 text-white px-4 py-1 rounded">Não</button>
+                </div>
+                <div class="flex items-center justify-end mt-5 w-full">
+                    <button id="cancel-btn" class="bg-red-500 text-white px-4 py-1 rounded">Cancelar
+                        pedido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM MODAL CONFIRMAÇÃO -->
 
 
-     <!--MODAL OK-->
-     <div class="bg-black/60 w-full h-full fixed top-0 left-0 z-[99]
+    <!--MODAL OK
+    <div class="bg-black/60 w-full h-full fixed top-0 left-0 z-[99]
      items-center justify-center hidden" id="cart-ok">
 
         <div class="p-5 rounded-md min-w-[90%] md:min-w-[600px] items-center justify-center">
@@ -257,7 +287,7 @@ items-center justify-center hidden" id="cart-modal">
 
         </div>
     </div>
-    <!--FIM MODAL OK-->
+    FIM MODAL OK-->
 
 
     <!--Button Cart Footer-->

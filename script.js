@@ -10,47 +10,13 @@ const addressInput = document.getElementById("address")
 const addressWarn = document.getElementById("address-warn")
 const cancelBtn = document.getElementById("cancel-btn")
 const checkModal = document.getElementById("cart-ok")
-const cartIcons = document.getElementsByName("cart-icon");
+const cartIcons = document.getElementsByName("cart-icon")
+const confirmModal = document.getElementById("confirm-modal")
+const abortBtn = document.getElementById("abort-btn")
+const alertBtn = document.getElementById("alert-btn")
 
 let cart = [];
 
-
-/*cartIcons.forEach(icon => {
-    icon.addEventListener("click", function(){
-        //checkModal.style.display = "flex";
-        icon.style.background = "green"; // Muda para verde
-        
-        setTimeout(() => {
-            icon.style.background = ""; // Volta para a cor original (ou defina uma cor específica)
-        }, 200);
-
-        // Obtém o contêiner correto do produto
-        let item = this.closest(".flex"); // Captura o div do produto específico
-        let itemName = item.querySelector("p.font-bold").textContent; // Obtém o nome do produto
-        let itemImage = item.querySelector("img").src; // Obtém a imagem do produto
-
-        // Exibe o Toastify com a imagem e o nome do produto
-        Toastify({
-            text: `✅ ${itemName} adicionado ao carrinho!`,
-            duration: 3000,
-            close: true,
-            gravity: "top",
-            position: "right",
-            stopOnFocus: true,
-            style: {
-                background: "#22c55e", // Verde
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-            },
-            avatar: itemImage, // Adiciona a imagem do produto na notificação
-        }).showToast();
-
-        /*setTimeout(() => {
-            checkModal.style.display = "none";
-        }, 200);
-    });
-});*/
 document.addEventListener("DOMContentLoaded", function () {
     const cartIcons = document.querySelectorAll(".add-to-cart-btn"); // Captura todos os botões de adicionar
 
@@ -101,6 +67,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+//Abrir o modal de confirmação
+alertBtn.addEventListener("click", function () {
+    updateCartModal();
+    confirmModal.style.display = "flex"
+})
 
 
 //Abrir o modal do carrinho
@@ -300,8 +271,16 @@ cancelBtn.addEventListener("click", function () {
             },
         }).showToast()
     }
+    //fecha modal de alerta
+    confirmModal.style.display = "none"
     updateCartModal();
 })
+
+abortBtn.addEventListener("click",function(){
+    confirmModal.style.display="none"
+})
+
+
 
 //Finalizar Pedido
 checkoutBtn.addEventListener("click", function () {
