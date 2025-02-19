@@ -256,7 +256,7 @@ cancelBtn.addEventListener("click", function () {
         cart = [];
         Toastify({
             text: "⚠️ Carrinho Vazio!",
-            duration: 1500, // Tempo ajustado para melhor visibilidade
+            duration: 1000, // Tempo ajustado para melhor visibilidade
             close: true,
             gravity: "top",
             position: "right",
@@ -271,6 +271,7 @@ cancelBtn.addEventListener("click", function () {
                 borderRadius: "5px",
             },
         }).showToast()
+        addressInput.value="";
     }else{
         // Exibe o Toastify com a imagem e o nome do produto
         Toastify({
@@ -290,6 +291,7 @@ cancelBtn.addEventListener("click", function () {
                 borderRadius: "5px",
             },
         }).showToast()
+        addressInput.value="";
     }
     //fecha modal de alerta
     confirmModal.style.display = "none"
@@ -321,7 +323,26 @@ checkoutBtn.addEventListener("click", function () {
         return;
     }
 
-    if (cart.length === 0) return;
+    if (cart.length === 0){
+        Toastify({
+            text: "⚠️ Carrinho Vazio!",
+            duration: 500, // Tempo ajustado para melhor visibilidade
+            close: false,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+                background: "#FFFF00", // Vermelho para indicar alerta
+                color: "#000",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "bold",
+                padding: "10px",
+                borderRadius: "5px",
+            },
+        }).showToast()
+        return;
+    }
     if (addressInput.value === "") {
         addressWarn.classList.remove("hidden")
         addressInput.classList.add("border-red-500")
@@ -356,6 +377,7 @@ Preço: ${item.price}
 
     window.open(`https://wa.me/${phone}?text=${message}`, "_blank")
 
+    addressInput.value="";
     cart = [];
     updateCartModal();
     
